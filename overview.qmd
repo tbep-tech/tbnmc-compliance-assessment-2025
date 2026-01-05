@@ -1,0 +1,44 @@
+---
+title: "{{< var maxyr >}} Tampa Bay Estuary Nutrient Management Compliance Assessment"
+params:
+  maxyr: 2024
+bibliography: refs.bib
+---
+
+```{r}
+library(flextable)
+library(ftExtra)
+library(tibble)
+
+source('R/funcs.R')
+```
+
+On December 22, 2010, then FDEP Secretary Drew signed a [Final Order](https://drive.google.com/file/d/1wV3w8ack_fLNK3yS-xTR7LTmziNtZ8CN/view?usp=share_link) accepting and approving the [2009 Reasonable Assurance](https://drive.google.com/file/d/10IjJAfcGFf007a5VdPXAUtUi4dx-cmsA/view?usp=drivesdk) Addendum for the Tampa Bay estuary. The final order found that the Nitrogen Management Consortium (NMC) provided FDEP reasonable assurance that: 1) completed and proposed management actions in the 2009 RA Addendum will result in the continued attainment of the estuarine nutrient criteria within Tampa Bay, and 2) compliance with the allocations in the 2009 RA Addendum ensures reasonable progress towards continued attainment of the estuarine nutrient criteria and associated Class III designated uses. Furthermore, the FDEP finalized a WQBEL for the Tampa Bay estuary in accordance with the allocations developed under the 2009 RA Addendum in November 2010. The Consortium completed subsequent RA Updates in  [2012](https://tbep.org/reasonable-assurance-plans-updates-2012/), [2017](https://tbep.org/reasonable-assurance-plans-updates-2017/), and [2022](https://drive.google.com/file/d/18HHMx4U6vHNrFyepEFuoTJ_sEKyTA_gu/view?usp=share_link) maintaining allocations and expanding upon projects originally defined in the [2002 RA Submittal](https://tbep.org/reasonable-assurance-plans-updates-2002/), [2007 RA Update](https://tbep.org/reasonable-assurance-plans-updates-2007/), [2009 RA Addendum](https://drive.google.com/file/d/10IjJAfcGFf007a5VdPXAUtUi4dx-cmsA/view?usp=drivesdk), [2012 RA Update](https://drive.google.com/file/d/1F_QmQcvGVQ78wK3jcMLMGmjs1vJ21nto/view?usp=share_link), [2017 RA Update](https://drive.google.com/file/d/1VdYE67_aZAhFq6JYQSKxx2WY2O5KwyUI/view?usp=share_link) and [2022 RA Update](https://drive.google.com/file/d/18HHMx4U6vHNrFyepEFuoTJ_sEKyTA_gu/view?usp=share_link).
+
+As part of the compliance assessment stipulated under the 2009 RA Addendum, the NMC committed to annually assess the water quality and seagrass conditions within Tampa Bay and annually report these to FDEP and EPA. The Consortium’s assessment responsibilities are shown in green in @fig-decision. It should be noted that the Consortium’s reasonable assurance assessment strategy begins with the observation of water quality conditions in the bay for a particular year. As is recommended in numerous EPA guidance documents for the development of numeric nutrient criteria, the Consortium’s assessment strategy attempts to apply a stressor-response rationale for the determination of nitrogen load allocation reasonable assurance in the estuary.
+
+```{r}
+#| label: fig-decision
+#| fig-align: center
+#| out-width: "70%"
+#| fig-cap: "Nitrogen Management Consortium decision framework to assess future reasonable assurance of adopted allocations. Actions and steps to be conducted by the NMC are shown in the circles and diamonds. Steps, decision points, and actions are outlined in @tbl-steps (below) according to the Roman numerals listed in the figure."
+knitr::include_graphics(here::here('www/decisionframework.png'))
+```
+
+The framework is applied on a bay-segment basis, and is predicated on assessing annual attainment of the bay segment chlorophyll-a concentration threshold as the initial step. If the bay segment-specific chlorophyll-a threshold is met, the Consortium annually reports the results to FDEP and EPA and additional assessment steps are not required by the Consortium (by June of the following year). If annual average chlorophyll-a thresholds are not met in one or more bay segments, additional assessment steps are required by the Consortium as noted in the framework and assessment process (@fig-decision, @tbl-steps).
+
+Regardless of the assessment results, the Consortium will annually report (by June of the following year) whether the bay segment specific chlorophyll-a thresholds are met using the Environmental Protection Commission of Hillsborough County (EPCHC) dataset, as traditionally assessed using the "Decision Matrix" management strategy developed by the TBEP [@tbep0400] and will deliver this to FDEP and EPA (@fig-decision; NMC Action 1 in the Framework). Additional data from Pinellas and Manatee County are used to determine if chlorophyll thresholds in the Remainder Lower Tampa Bay segment (Boca Ciega Bay South, Terra Ceia Bay, and Manatee River) are met in these areas. If an annual, individual exceedence of a bay segment chlorophyll-a threshold is observed, an addendum report outlining the anomalous event(s) or data which influenced the bay segment chlorophyll-a exceedence will be delivered to FDEP and EPA upon review by NMC participants by September of the following year (@fig-decision; NMC Action 2 in the Framework). An evaluation of the bay segment assimilative capacity (i.e. revision to the federally-recognized TMDL) is formally considered (if not already considered by the NMC) when bay segment chlorophyll-a thresholds are not met in 2 concurrent years, and hydrologically normalized loads for those years meet the federally-recognized TMDL (@fig-decision; NMC Action 3 in the Framework). This was the case for the Old Tampa Bay segment during the 2019-2021 period and an assimilative capacity assessment is being conducted in 2024.  Alternatively, when bay segment chlorophyll-a thresholds are not met in 2 concurrent years and hydrologically normalized loads for those years also do not meet the federally-recognized TMDL, the Consortium will deliver a full loading report to FDEP and EPA comparing the observed, combined entity/source annual or multiple year loadings to the sources' 5-yr annual average allocation by September of the following year. This report will identify any exceedences among combined entity/source load categories after taking into consideration "set allocation" sources and hydrologically-normalized sources, and if necessary, whether exceedences were observed for individual MS4 or unpermitted (LA) sources (@fig-decision; NMC Action 4 in the Framework). It is noted that FDEP will independently assess individual entities for compliance with their allocations.
+
+```{r}
+#| label: tbl-steps
+#| tbl-cap: "Assessment steps linked to the Nitrogen Management Consortium's decision framework, as depicted in the flowchart above."
+nmcstepstab()
+```
+
+NMC actions outlined in @fig-decision and @tbl-steps performed during RA Implementation Period (2022-2026) are as follows:
+
+```{r}
+#| ft.align: "left"
+nmcactionstab()
+```
+

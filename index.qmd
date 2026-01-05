@@ -1,0 +1,27 @@
+---
+title: The Tampa Bay Nitrogen Management Consortium Partnership for Progress
+params:
+  maxyr: 2024
+---
+
+![](www/header.png)
+
+```{r}
+#| ft.align: 'left'
+library(flextable)
+library(tibble)
+source('R/funcs.R')
+
+# table function for header
+headertab(dt = 'Jan. 19, 2025', maxyr = params$maxyr)
+```
+
+Source content: [here](https://github.com/tbep-tech/tbnmc-compliance-assessment-2024)
+
+On behalf of the Tampa Bay Nitrogen Management Consortium, please find attached the {{< var maxyr >}} update on water quality and seagrass resources in the Tampa Bay estuary. This update has been developed in accordance with the compliance assessment adopted through [FDEP’s Tampa Bay Reasonable Assurance determination on December 22, 2010](https://drive.google.com/file/d/1wV3w8ack_fLNK3yS-xTR7LTmziNtZ8CN/view?usp=share_link), FDEP’s subsequent [approval](https://drive.google.com/file/d/1IIloBN5RoZPB6vgWzEjmMQyFjFL3fq0Y/view?usp=share_link) of the [2022 RA Update](https://drive.google.com/file/d/18HHMx4U6vHNrFyepEFuoTJ_sEKyTA_gu/view), and the [federally-recognized TMDL for Tampa Bay](https://drive.google.com/file/d/18_W1qKT2I0j9m0mLC7wWjndSNR-0iWEF/view?usp=share_link). The formal annual compliance assessment utilized by the Consortium is detailed in Section VIII.B of the [Final 2009 Reasonable Assurance Addendum: Allocation and Assessment Report](https://drive.google.com/file/d/10IjJAfcGFf007a5VdPXAUtUi4dx-cmsA/view).
+
+Chlorophyll-a concentrations for all four major bay segments were below FDEP-approved numeric nutrient criteria thresholds in {{< var maxyr >}}.  Additionally, concentrations for the Remainder Lower Tampa Bay segment that includes Boca Ciega Bay South, Terra Ceia Bay, and Manatee River were also below the criteria. The approved chlorophyll-a thresholds were adopted as part of FDEP’s 2002 Reasonable Assurance determination for Tampa Bay, and, at that time, it was determined that Tampa Bay’s seagrass restoration goals could be achieved if annual, uncorrected chlorophyll-a concentrations remained below these thresholds. If a bay segment’s chlorophyll-a concentration remains above thresholds for 2 concurrent years, additional compliance assessment steps are required by the Consortium. This nutrient management strategy has been consistently used by the TBEP and Consortium in their Annual Decision Matrix and Assessment reports [@tbep0325].
+
+Seagrass coverage in Tampa Bay increased by 1,407 acres between 2022 and 2024. The Southwest Florida Water Management District's (SWFWMD) 2024 baywide seagrass coverage estimate is 31,544 acres, below the baywide target of 40,000 acres (@fig-seagrass). Gains were observed in all bay segments, except Old Tampa Bay where a loss was observed. Additional research, assimilative capacity assessments, and restoration initiatives are being conducted in response to this localized trend.  The Consortium’s approved nutrient management strategy remains a necessary tool to adaptively manage and address nutrient loading to the Tampa Bay estuary. For all Tampa Bay segments, water quality remained supportive of seagrass resources in {{< var maxyr >}}, though continued seagrass losses in the Old Tampa Bay segment continue to be examined.  Annual [seagrass transect surveys](https://shiny.tbep.org/seagrasstransect-dash) for Old Tampa Bay show a shift from rooted macroalgae (*Caulerpa prolifera*) to cyanobacteria and green drift algae, suggesting that nutrient loading continues to be a problem for this bay segment.
+
+Thank you again for your continued participation in the Consortium’s process.  Please contact Ed Sherwood ([esherwood@tbep.org](mailto:esherwood@tbep.org)) with any questions about the Consortium’s Annual Compliance Assessment.
