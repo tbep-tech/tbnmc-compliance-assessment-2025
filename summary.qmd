@@ -19,8 +19,6 @@ library(sf)
 
 source('R/funcs.R')
 
-fml <- NA
-
 data(chldat)
 
 # for matrix and ra tables, must conform to tbeptools format
@@ -59,7 +57,7 @@ hydrotab(params$maxyr, Sys.getenv('NOAA_KEY'))
 #| fig-align: center
 #| fig-width: 12
 #| fig-height: 14
-show_rachlplot(chldat, params$maxyr, fml)
+show_rachlplot(chldat, params$maxyr)
 ```
 
 ```{r}
@@ -78,7 +76,7 @@ show_rasitemap(chldat, params$maxyr, thrs = T)
 #| fig-height: 15
 #| fig-width: 12
 #| fig-align: center
-show_chlboxplot(chldat, params$maxyr, fml)
+show_chlboxplot(chldat, params$maxyr)
 ```
 
 ```{r}
@@ -98,7 +96,7 @@ show_seagrasscoverage(seagrass, maxyr = 2024, lastlab = T)
 #| fig-width: 4
 #| fig-align: center
 #| out-width: "40%"
-show_chlmatrix(chldatmod, params$maxyr, fml)
+show_chlmatrix(chldatmod, params$maxyr)
 ```
 
 ```{r}

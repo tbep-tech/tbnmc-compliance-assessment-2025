@@ -20,7 +20,7 @@ xlsx <- here::here('data/data-raw', 'wq_data.xls')
 wqdat <- read_importwq(xlsx, download_latest = T)
 # epcdata <- read_importwq(xlsx, download_latest = F)
 
-epcchl <- epcdata %>%
+epcchl <- wqdat %>%
   select(
     bay_segment,
     station = epchc_station,
@@ -140,6 +140,71 @@ pinchl2024 <- pinchlraw3 %>%
   .[bcbsseg, ] %>%
   st_set_geometry(NULL)
 
+## 2025 BCB
+# trying WA API, note that Chla_ugl is uncorrected, ChlaC_ugl would be corrected
+pinchlwaraw2025 <- read_importwqwa(
+  dataSource = 'WIN_21FLPDEM',
+  parameter = 'Chla_ugl',
+  start_date = '2025-01-01',
+  end_date = '2025-12-31',
+  trace = TRUE
+)
+
+pinchlwa2025 <- pinchlwaraw2025 %>%
+  select(
+    station = actualStationID,
+    SampleTime = activityStartDate,
+    Latitude = actualLatitude,
+    Longitude = actualLongitude,
+    sample = activityType,
+    chla = resultValue,
+    chla_q = valueQualifier
+  ) %>%
+  filter(sample %in% 'Sample') %>%
+  mutate(
+    bay_segment = 'BCBS',
+    SampleTime = as.Date(SampleTime),
+    yr = year(SampleTime),
+    mo = month(SampleTime),
+    Latitude = as.numeric(Latitude),
+    Longitude = as.numeric(Longitude),
+    chla_q = NA_character_ # no qualifiers for these data
+  ) %>%
+  select(bay_segment, station, SampleTime, yr, mo, everything()) %>%
+  st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326, remove = F) %>%
+  .[bcbsseg, ] %>%
+  st_set_geometry(NULL)
+
+# # trying WIN API
+# pinchlwinraw2025 <- read_importwqwin(
+#   start_date = '2025-01-01',
+#   end_date = '2025-12-31',
+#   org_id = '21FLPDEM',
+#   verbose = TRUE,
+#   max_retries = 5
+# )
+
+# pinchlwin2025 <- pinchlwinraw2025 %>%
+#   filter(depAnalytePrimaryName == 'Chlorophyll a- uncorrected') %>%
+#   select(
+#     station = monitoringLocId,
+#     SampleTime = activityStartDate,
+#     Latitude = latitude,
+#     Longitude = longitude,
+#     chla = depResultValue,
+#     chla_q = valueQualifier
+#   ) %>%
+#   mutate(
+#     bay_segment = 'BCBS',
+#     SampleTime = mdy_hms(SampleTime, tz = 'America/Jamaica'),
+#     yr = year(SampleTime),
+#     mo = month(SampleTime)
+#   ) %>%
+#   select(bay_segment, station, SampleTime, yr, mo, everything()) %>%
+#   st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326, remove = F) %>%
+#   .[bcbsseg, ] %>%
+#   st_set_geometry(NULL)
+
 # Manatee (MR, TCB) ---------------------------------------------------------------------------
 
 ##
@@ -234,6 +299,42 @@ manchl2024 <- manchlraw2 %>%
   ) %>%
   select(bay_segment, station, SampleTime, yr, mo, everything())
 
+# manchl 2025 (do not pull from WA, not updated)
+# trying WIN API
+
+MR <- c('431', '433', '434', '532', '535', 'LM4')
+TCB <- c('395', '405', '408', '430')
+
+manchlwinraw2025 <- read_importwqwin(
+  start_date = '2025-01-01',
+  end_date = '2025-12-31',
+  org_id = '21FLMANA',
+  verbose = TRUE,
+  max_retries = 5
+)
+
+manchlwin2025 <- manchlwinraw2025 %>%
+  filter(depAnalytePrimaryName == "Chlorophyll a, free of pheophytin") %>% # does not report uncorrected
+  select(
+    station = monitoringLocId,
+    SampleTime = activityStartDate,
+    Latitude = latitude,
+    Longitude = longitude,
+    chla = depResultValue,
+    chla_q = valueQualifier
+  ) %>%
+  filter(station %in% c(MR, TCB)) %>%
+  mutate(
+    bay_segment = case_when(
+      station %in% MR ~ 'MR',
+      station %in% TCB ~ 'TCB'
+    ),
+    SampleTime = mdy_hms(SampleTime, tz = 'America/Jamaica'),
+    yr = year(SampleTime),
+    mo = month(SampleTime)
+  ) %>%
+  select(bay_segment, station, SampleTime, yr, mo, everything())
+
 ##
 # combine all
 chldat <- epcchl %>%
@@ -241,7 +342,9 @@ chldat <- epcchl %>%
   bind_rows(pinchl2022) %>%
   bind_rows(pinchl2023) %>%
   bind_rows(pinchl2024) %>%
+  bind_rows(pinchlwa2025) %>%
   bind_rows(manchl20222023) %>%
-  bind_rows(manchl2024)
+  bind_rows(manchl2024) %>%
+  bind_rows(manchlwin2025)
 
 save(chldat, file = here('data/chldat.RData'))

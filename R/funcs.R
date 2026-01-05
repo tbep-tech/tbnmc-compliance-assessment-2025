@@ -192,7 +192,6 @@ show_rathrplot <- function(
   thr = c('chla', 'la'),
   trgs = NULL,
   yrrng = c(1975, 2019),
-  family = NA,
   labelexp = TRUE,
   txtlab = TRUE,
   thrs = FALSE,
@@ -324,8 +323,7 @@ show_rathrplot <- function(
         angle = 0,
         size = 14,
         hjust = 0.5
-      ),
-      text = element_text(family)
+      )
     )
 
   # all targets/thresholds
@@ -386,7 +384,6 @@ show_rathrplot <- function(
         parse = labelexp,
         hjust = 0.2,
         vjust = 1,
-        family = family,
         colour = 'blue'
       )
   }
@@ -398,7 +395,6 @@ show_rathrplot <- function(
         parse = labelexp,
         hjust = 0.2,
         vjust = 1,
-        family = family,
         colour = 'blue'
       )
   }
@@ -418,7 +414,7 @@ show_rathrplot <- function(
 }
 
 # annual chlorophyll figure
-show_rachlplot <- function(chldat, maxyr, fml) {
+show_rachlplot <- function(chldat, maxyr) {
   yrrng <- c(1975, maxyr)
 
   p1 <- show_rathrplot(
@@ -426,7 +422,6 @@ show_rachlplot <- function(chldat, maxyr, fml) {
     bay_segment = "OTB",
     thr = "chla",
     yrrng = yrrng,
-    family = fml,
     thrs = T
   )
   p2 <- show_rathrplot(
@@ -434,7 +429,6 @@ show_rachlplot <- function(chldat, maxyr, fml) {
     bay_segment = "HB",
     thr = "chla",
     yrrng = yrrng,
-    family = fml,
     thrs = T
   )
   p3 <- show_rathrplot(
@@ -442,7 +436,6 @@ show_rachlplot <- function(chldat, maxyr, fml) {
     bay_segment = "MTB",
     thr = "chla",
     yrrng = yrrng,
-    family = fml,
     thrs = T
   )
   p4 <- show_rathrplot(
@@ -450,7 +443,6 @@ show_rachlplot <- function(chldat, maxyr, fml) {
     bay_segment = "LTB",
     thr = "chla",
     yrrng = yrrng,
-    family = fml,
     thrs = T
   )
   p5 <- show_rathrplot(
@@ -599,7 +591,7 @@ anlz_raavedat <- function(datin, partialyr = FALSE) {
 }
 
 # chlorophyll boxplots all segments
-show_chlboxplot <- function(chldat, maxyr, fml) {
+show_chlboxplot <- function(chldat, maxyr) {
   yrrng <- c(1975, maxyr)
   txtcol <- 'black'
   thrthm <- theme(
@@ -614,7 +606,6 @@ show_chlboxplot <- function(chldat, maxyr, fml) {
       angle = 0,
       hjust = 0.5
     ),
-    text = element_text(family = fml),
     legend.position = 'top'
   )
 
@@ -622,50 +613,43 @@ show_chlboxplot <- function(chldat, maxyr, fml) {
     chldat,
     bay_segment = "OTB",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
   p2 <- show_raboxplot(
     chldat,
     bay_segment = "HB",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
   p3 <- show_raboxplot(
     chldat,
     bay_segment = "MTB",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
   p4 <- show_raboxplot(
     chldat,
     bay_segment = "LTB",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
   p5 <- show_raboxplot(
     chldat,
     bay_segment = "BCBS",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
   p6 <- show_raboxplot(
     chldat,
     bay_segment = "TCB",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
   p7 <- show_raboxplot(
     chldat,
     bay_segment = "MR",
     yrrng = yrrng,
-    yrsel = maxyr,
-    family = fml
+    yrsel = maxyr
   )
 
   p <- (guide_area() /
@@ -681,14 +665,13 @@ show_chlboxplot <- function(chldat, maxyr, fml) {
 }
 
 # chloropyll matrix
-show_chlmatrix <- function(wqdat, maxyr, fml) {
+show_chlmatrix <- function(wqdat, maxyr) {
   out <- show_rawqmatrix(
     wqdat,
     param = 'chla',
     yrrng = c(1975, maxyr),
     txtsz = 5,
-    abbrev = T,
-    family = fml
+    abbrev = T
   ) +
     geom_hline(yintercept = 2021.5, size = 2, color = 'grey') +
     theme(
@@ -696,8 +679,7 @@ show_chlmatrix <- function(wqdat, maxyr, fml) {
       plot.background = element_rect(fill = NA, color = NA),
       axis.text.y = element_text(size = 14, colour = 'black'),
       axis.text.x = element_text(size = 14, colour = 'black'),
-      plot.title = element_text(size = 22, colour = 'black'),
-      text = element_text(family = fml)
+      plot.title = element_text(size = 22, colour = 'black')
     )
 
   return(out)
@@ -928,7 +910,6 @@ show_raboxplot <- function(
   ptsz = 0.5,
   bay_segment = c('OTB', 'HB', 'MTB', 'LTB', 'BCBS', 'TCB', 'MR'),
   trgs = NULL,
-  family = NA,
   labelexp = TRUE,
   txtlab = TRUE,
   partialyr = FALSE
@@ -1073,7 +1054,6 @@ show_raboxplot <- function(
       colour = 'blue'
     ) +
     labs(y = axlab, title = ttl) +
-    theme_grey(base_family = family) +
     theme(
       axis.title.x = element_blank(),
       panel.grid.minor = element_blank(),
@@ -1098,8 +1078,7 @@ show_raboxplot <- function(
         label = trglab,
         hjust = 0.2,
         vjust = 1,
-        colour = 'blue',
-        family = family
+        colour = 'blue'
       )
   }
 
@@ -1204,7 +1183,6 @@ show_rawqmatrix <- function(
   asreact = FALSE,
   nrows = 10,
   abbrev = FALSE,
-  family = NA,
   plotly = FALSE,
   partialyr = FALSE,
   width = NULL,
@@ -1311,7 +1289,7 @@ show_rawqmatrix <- function(
       thresh = paste0('Threshold: ', round(thresh, rndval))
     ) %>%
     tidyr::unite(segval, c('val', 'thresh'), sep = ', ') %>%
-    dplyr::mutate(
+    dplyr::mutate(f
       segval = paste0('(', segval, ')')
     ) %>%
     unite(Result, c('Result', 'segval'), sep = ' ')
@@ -1330,7 +1308,7 @@ show_rawqmatrix <- function(
 
   if (!is.null(txtsz)) {
     p <- p +
-      geom_text(aes(label = outcometxt), size = txtsz, family = family)
+      geom_text(aes(label = outcometxt), size = txtsz)
   }
 
   if (partialyr) {
@@ -1347,7 +1325,6 @@ show_rawqmatrix <- function(
   if (plotly) {
     p <- show_matrixplotly(
       p,
-      family = family,
       tooltip = 'Result',
       width = width,
       height = height
