@@ -1,7 +1,7 @@
 ---
 title: "{{< var maxyr >}} Results Summary"
 params:
-  maxyr: 20255
+  maxyr: 2025
 bibliography: refs.bib
 ---
 
@@ -48,8 +48,7 @@ Lastly, annual hydrologic conditions among all the major bay segments in {{< var
 ```{r}
 #| label: tbl-hydrotab
 #| tbl-cap: !expr paste0("Hydrologic load estimates in ", params$maxyr, " relative to 1992-1994 levels and estimated compliance load adjustment factors for the major bay segments.")
-# hydrotab(params$maxyr, Sys.getenv('NOAA_KEY'))
-knitr::kable(mtcars)
+hydrotab(params$maxyr, Sys.getenv('NOAA_KEY'))
 ```
 
 ```{r}
