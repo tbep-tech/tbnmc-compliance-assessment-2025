@@ -30,9 +30,9 @@ headertab <- function(dt = NULL, maxyr, fsz = 13) {
         maxyr,
         'Tampa Bay Nutrient Management Compliance Assessment Results'
       ),
-      'Ken Weaver, Jessica Mostyn, Ben Ralys, Kevin O’Donnell, Lawrence Glenn (FDEP Tallahssee)',
+      'Ken Weaver, Jessica Mostyn, Ben Ralys, Kevin O’Donnell, Lawrence Glenn, Kenneth Hayman (FDEP Tallahssee)',
       'Ramandeep Kaur, Jorge Perez, Lance Kautz, Jessica Pein, Erica Peck (FDEP Tampa)',
-      'Jeaneanne M. Gettle, Wade Lehmann, Cindy Barger, Nancy Laurson, Felicia Burks, Tom McGill (EPA Region 4/HQ)',
+      'Craig Hesterlee, Jeaneanne M. Gettle, Wade Lehmann, Cindy Barger, Nancy Laurson, Felicia Burks, Johnnie Purify (EPA Region 4/HQ)',
       'Michele Duggan, Santino Provenzano (TBNMC)',
       'Ed Sherwood, Maya Burke, Marcus Beck (TBEP)'
     )
