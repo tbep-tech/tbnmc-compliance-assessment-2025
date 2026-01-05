@@ -1289,7 +1289,7 @@ show_rawqmatrix <- function(
       thresh = paste0('Threshold: ', round(thresh, rndval))
     ) %>%
     tidyr::unite(segval, c('val', 'thresh'), sep = ', ') %>%
-    dplyr::mutate(f
+    dplyr::mutate(
       segval = paste0('(', segval, ')')
     ) %>%
     unite(Result, c('Result', 'segval'), sep = ' ')
