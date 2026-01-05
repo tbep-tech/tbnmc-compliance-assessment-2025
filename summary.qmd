@@ -1,7 +1,7 @@
 ---
 title: "{{< var maxyr >}} Results Summary"
 params:
-  maxyr: 2024
+  maxyr: 20255
 bibliography: refs.bib
 ---
 
@@ -24,14 +24,14 @@ fml <- NA
 data(chldat)
 
 # for matrix and ra tables, must conform to tbeptools format
-chldatmod <- chldat %>% 
+chldatmod <- chldat %>%
   rename(
     epchc_station = station
-  ) %>% 
+  ) %>%
   mutate(
-    sd_m = 1, 
+    sd_m = 1,
     bay_segment = case_when(
-      bay_segment %in% c('BCBS', 'TCB', 'MR') ~ 'RALTB', 
+      bay_segment %in% c('BCBS', 'TCB', 'MR') ~ 'RALTB',
       T ~ bay_segment
     )
   )
