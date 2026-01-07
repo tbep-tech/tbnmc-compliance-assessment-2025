@@ -13,12 +13,12 @@ source(here('R/funcs.R'))
 # epc data
 
 # local file path
-xlsx <- here::here('data/data-raw', 'wq_data.xls')
-# xlsx <- here::here('data/data-raw', 'Results_Provisional.xlsx')
+# xlsx <- here::here('data/data-raw', 'wq_data.xls')
+xlsx <- here::here('data/data-raw', 'Results_Provisional.xlsx')
 
 # import and download if new
-wqdat <- read_importwq(xlsx, download_latest = T)
-# epcdata <- read_importwq(xlsx, download_latest = F)
+# wqdat <- read_importwq(xlsx, download_latest = T)
+wqdat <- read_importwq(xlsx, download_latest = F)
 
 epcchl <- wqdat %>%
   select(
