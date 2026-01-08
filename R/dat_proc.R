@@ -140,40 +140,40 @@ pinchl2024 <- pinchlraw3 %>%
   .[bcbsseg, ] %>%
   st_set_geometry(NULL)
 
-## 2025 BCB
-# trying WA API, note that Chla_ugl is uncorrected, ChlaC_ugl would be corrected
-pinchlwaraw2025 <- read_importwqwa(
-  dataSource = 'WIN_21FLPDEM',
-  parameter = 'Chla_ugl',
-  start_date = '2025-01-01',
-  end_date = '2025-12-31',
-  trace = TRUE
-)
+# # 2025 BCB
+# # trying WA API, note that Chla_ugl is uncorrected, ChlaC_ugl would be corrected
+# pinchlwaraw2025 <- read_importwqwa(
+#   dataSource = 'WIN_21FLPDEM',
+#   parameter = 'Chla_ugl',
+#   start_date = '2025-01-01',
+#   end_date = '2025-12-31',
+#   trace = TRUE
+# )
 
-pinchlwa2025 <- pinchlwaraw2025 %>%
-  select(
-    station = actualStationID,
-    SampleTime = activityStartDate,
-    Latitude = actualLatitude,
-    Longitude = actualLongitude,
-    sample = activityType,
-    chla = resultValue,
-    chla_q = valueQualifier
-  ) %>%
-  filter(sample %in% 'Sample') %>%
-  mutate(
-    bay_segment = 'BCBS',
-    SampleTime = as.Date(SampleTime),
-    yr = year(SampleTime),
-    mo = month(SampleTime),
-    Latitude = as.numeric(Latitude),
-    Longitude = as.numeric(Longitude),
-    chla_q = NA_character_ # no qualifiers for these data
-  ) %>%
-  select(bay_segment, station, SampleTime, yr, mo, everything()) %>%
-  st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326, remove = F) %>%
-  .[bcbsseg, ] %>%
-  st_set_geometry(NULL)
+# pinchlwa2025 <- pinchlwaraw2025 %>%
+#   select(
+#     station = actualStationID,
+#     SampleTime = activityStartDate,
+#     Latitude = actualLatitude,
+#     Longitude = actualLongitude,
+#     sample = activityType,
+#     chla = resultValue,
+#     chla_q = valueQualifier
+#   ) %>%
+#   filter(sample %in% 'Sample') %>%
+#   mutate(
+#     bay_segment = 'BCBS',
+#     SampleTime = as.Date(SampleTime),
+#     yr = year(SampleTime),
+#     mo = month(SampleTime),
+#     Latitude = as.numeric(Latitude),
+#     Longitude = as.numeric(Longitude),
+#     chla_q = NA_character_ # no qualifiers for these data
+#   ) %>%
+#   select(bay_segment, station, SampleTime, yr, mo, everything()) %>%
+#   st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326, remove = F) %>%
+#   .[bcbsseg, ] %>%
+#   st_set_geometry(NULL)
 
 # # trying WIN API
 # pinchlwinraw2025 <- read_importwqwin(
@@ -204,6 +204,30 @@ pinchlwa2025 <- pinchlwaraw2025 %>%
 #   st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326, remove = F) %>%
 #   .[bcbsseg, ] %>%
 #   st_set_geometry(NULL)
+
+# 2025 BCB
+# from Alex Manos via email 1/8/26
+pinchlraw4 <- read_excel(here('data/data-raw/pinchl2025.xlsx'))
+
+pinchl2025 <- pinchlraw4 %>%
+  select(
+    station = Site,
+    SampleTime = Date,
+    Latitude,
+    Longitude,
+    chla = `Chl-a - uncorrected (µg/L)`
+  ) %>%
+  mutate(
+    bay_segment = 'BCBS',
+    SampleTime = as.Date(SampleTime),
+    yr = year(SampleTime),
+    mo = month(SampleTime),
+    chla_q = NA_character_ # no qualifiers for these data
+  ) %>%
+  select(bay_segment, station, SampleTime, yr, mo, everything()) %>%
+  st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326, remove = F) %>%
+  .[bcbsseg, ] %>%
+  st_set_geometry(NULL)
 
 # Manatee (MR, TCB) ---------------------------------------------------------------------------
 
@@ -342,7 +366,7 @@ chldat <- epcchl %>%
   bind_rows(pinchl2022) %>%
   bind_rows(pinchl2023) %>%
   bind_rows(pinchl2024) %>%
-  bind_rows(pinchlwa2025) %>%
+  bind_rows(pinchl2025) %>%
   bind_rows(manchl20222023) %>%
   bind_rows(manchl2024) %>%
   bind_rows(manchlwin2025)
