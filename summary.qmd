@@ -126,5 +126,5 @@ show_ratab(bay_segment = 'LTB', yrsel = params$maxyr, epcdata = chldatmod)
 ```{r}
 #| label: tbl-raraltb
 #| tbl-cap: !expr ratabcap('RALTB')
-show_ratab(bay_segment = 'LTB', yrsel = params$maxyr, epcdata = chldatmod) # same as ltb for ra
+show_ratab(bay_segment = 'RALTB', yrsel = params$maxyr, epcdata = chldatmod) # same as ltb for ra
 ```
